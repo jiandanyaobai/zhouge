@@ -6,7 +6,7 @@
  **/
 
 import 'package:flutter/material.dart';
-import '../models/models.dart' show BasicItem, WareHouseData;
+import '../models/models.dart' show  WareHouseData;
 
 class WareHousePages extends StatelessWidget {
   final _warehousedata = WareHouseData.mock().demos;

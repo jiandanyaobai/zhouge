@@ -6,7 +6,7 @@
  **/
 
 import 'package:flutter/material.dart';
-import '../models/models.dart' show PurchaseData,BasicItem;
+import '../models/models.dart' show PurchaseData;
 
 
 class PurchasePages extends StatelessWidget {

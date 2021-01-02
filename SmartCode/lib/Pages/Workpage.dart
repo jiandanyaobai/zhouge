@@ -6,7 +6,7 @@
  **/
 
 import 'package:flutter/material.dart';
-import '../models/models.dart' show WorkData,BasicItem;
+import '../models/models.dart' show WorkData;
 
 
 class WorkPages extends StatelessWidget {

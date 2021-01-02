@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
  **/
 
 import 'package:flutter/material.dart';
-import '../models/models.dart' show BasicItem,SaleData;
+import '../models/models.dart' show SaleData;
 
 class SalesPages extends StatelessWidget {
 

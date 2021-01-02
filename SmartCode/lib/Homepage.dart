@@ -10,6 +10,7 @@ import 'Pages/Salespage.dart' show SalesPages;
 import 'Pages/WareHousePage.dart' show WareHousePages;
 import 'Pages/Purchasepage.dart' show PurchasePages;
 import 'config/conf.dart' show GlobalVariable;
+import 'Pages/Settingpage.dart' show SettingPages;
 
 class HomePages extends StatefulWidget {
   @override
@@ -27,7 +28,10 @@ class _HomePagesState extends State<HomePages> {
               centerTitle: true,
               automaticallyImplyLeading: true,
               actions: <Widget>[
-                Image.asset('assets/images/temp_setting.png', width: 26.0, height: 26.0,),
+                GestureDetector(
+                  onTap: (){  Navigator.of(context).push(MaterialPageRoute( builder: (context)=> SettingPages() ));  },
+                  child:Image.asset('assets/images/temp_setting.png', width: 26.0, height: 26.0,),
+                ),
                 SizedBox(width: 5.0,)
               ],
               title: RichText(
@@ -36,6 +40,8 @@ class _HomePagesState extends State<HomePages> {
                   TextSpan(text: GlobalVariable.AppHomeSubTitle, style: TextStyle(fontSize: 12.0))
                 ]),
               ),
+
+              //可以单独设置，固定高度为40H
               bottom: PreferredSize(
                 preferredSize: Size.fromHeight(40),
                 child: Material(

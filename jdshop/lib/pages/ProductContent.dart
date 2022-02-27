@@ -14,8 +14,11 @@ import '../widget/myButton.dart';
 import 'package:dio/dio.dart';
 import '../model/ProductContentModel.dart';
 import '../config/config.dart';
-import 'dart:convert';
 import '../widget/loadingWidget.dart';
+import '../services/EventBus.dart';
+import '../services/CarServices.dart';
+import '../provider/Cart.dart';
+import 'package:provider/provider.dart';
 
 class ProductContentPage extends StatefulWidget {
   // 构造函数
@@ -31,16 +34,16 @@ class _ProductContentPageState extends State<ProductContentPage> {
   ProductContentItem _productContentData;
   List _productContentList = [];
 
+  var cartProvider;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     this._getContentData();
   }
-
   // 请求数据
   _getContentData() async  {
-
     // http://jd.itying.com/api/pcontent?id=59f6a2d27ac40b223cfdcf81
     // api请求接口
     var api = '${Config.domain}api/pcontent?id=${widget.arguments['id']}';
@@ -50,12 +53,11 @@ class _ProductContentPageState extends State<ProductContentPage> {
     setState(() {
       this._productContentList.add(productContent.result);
     });
-
   }
-
 
   @override
   Widget build(BuildContext context) {
+    this.cartProvider = Provider.of<Cart>(context); //监听cart的状态
     return DefaultTabController(
         length: 3,
         child: Scaffold(
@@ -136,25 +138,35 @@ class _ProductContentPageState extends State<ProductContentPage> {
                     child:Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Container(
-                          padding: EdgeInsets.only(top: 20.0),
-                          color: Colors.white,
-                          width:100,
-                          height: ScreenUtil().setHeight(80),
-                          child: Column(
-                            children: [
-                              Icon(Icons.shopping_cart),
-                              Text('购物车'),
-                            ],
+                        InkWell(
+                          onTap:(){},
+                          child:Container(
+                            padding: EdgeInsets.only(top: 20.0),
+                            color: Colors.white,
+                            width:100,
+                            height: ScreenUtil().setHeight(80),
+                            child: Column(
+                              children: [
+                                Icon(Icons.shopping_cart),
+                                Text('购物车'),
+                              ],
+                            ),
                           ),
                         ),
                         Expanded(
                             flex: 1,
                             child: MyButton(
-                              cb: (){},
+                              cb: () async{
+                                if(this._productContentList[0].attr.length > 0 ){
+                                  eventBus.fire( new ProductContentEvent("加入购物车"));
+                                }else{
+                                 await CarServices.addCart(this._productContentList[0 ]);
+                                 this.cartProvider.updateCartList();
+                                }
+                              },
                               color: Colors.white,
                               text: "加入购物车",
-                            ),
+                            )
                         ),
                         Expanded(
                             flex: 1,
@@ -163,7 +175,7 @@ class _ProductContentPageState extends State<ProductContentPage> {
                               bgcolor: Colors.amberAccent,
                               text: "立即购买",
                               cb: (){
-                                print('123');
+                                eventBus.fire(ProductContentEvent("立即购买"));
                               },
                             )
                         ),

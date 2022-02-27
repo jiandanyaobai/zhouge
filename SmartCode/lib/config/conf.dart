@@ -1,3 +1,4 @@
+
 /**
  * @Author: zhouge
  * @Description: 配置文件
@@ -28,6 +29,8 @@ class Constants{
   static const IndexLetterBoxRadius = 4.0;
   static const FullWidthIconButtonSize = 30.0;
   static const DiscoverRowButtonSize = 15.0;
+  static const StandButtonTextSize = 150.0;
+
 
   static const MENU_MASK_AS_UNREAD = '标记未读';
   static const MENU_MASK_AS_UNREAD_VALUE = '标记未读';

@@ -6,7 +6,6 @@
  **/
 
 class Config {
-
-  static String domain = "http://jd.itying.com/";
-
+  static String domain = "http://jdmall.itying.com/";
+  static String nullmessage = "无可选择项目";
 }

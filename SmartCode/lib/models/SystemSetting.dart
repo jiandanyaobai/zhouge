@@ -14,7 +14,6 @@ class FullIconButton extends StatelessWidget {
   static const HORIZONTAL_PADDING = 20.0;
   static const VERTICAL_PADDING = 13.0;
 
-
   final String avatar;
   final String title;
   final String devicesinfo;

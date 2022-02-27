@@ -11,8 +11,7 @@ class ProductContentModel {
   ProductContentModel({this.result});
 
   ProductContentModel.fromJson(Map<String, dynamic> json) {
-    result =
-    json['result'] != null ? new ProductContentItem.fromJson(json['result']) : null;
+    result = json['result'] != null ? new ProductContentItem.fromJson(json['result']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -41,6 +40,11 @@ class ProductContentItem {
   String subTitle;
   int salecount;
 
+  // 新增
+  int count;
+  String selectedAttr;
+
+
   ProductContentItem(
       {this.sId,
         this.title,
@@ -56,7 +60,10 @@ class ProductContentItem {
         this.cname,
         this.attr,
         this.subTitle,
-        this.salecount});
+        this.salecount,
+        this.count,
+        this.selectedAttr
+      });
 
   ProductContentItem.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -79,6 +86,11 @@ class ProductContentItem {
     }
     subTitle = json['sub_title'];
     salecount = json['salecount'];
+
+    // 新增、初始化给值
+    count = 1;
+    selectedAttr='';
+
   }
 
   Map<String, dynamic> toJson() {
@@ -107,12 +119,14 @@ class ProductContentItem {
 class Attr {
   String cate;
   List<String> list;
+  List<Map> attrList;
 
   Attr({this.cate, this.list});
 
   Attr.fromJson(Map<String, dynamic> json) {
     cate = json['cate'];
     list = json['list'].cast<String>();
+    attrList = [];
   }
 
   Map<String, dynamic> toJson() {

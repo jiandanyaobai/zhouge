@@ -23,17 +23,19 @@ class WorkPages extends StatelessWidget {
           childAspectRatio: 2/1.5
         ),
         itemBuilder: (BuildContext context, int index){
-          return InkWell(
-            radius: 0.0,
-            onTap: _workhomedata[index].onPressed,
-            child: Padding(
-              padding: EdgeInsets.only(top: 20.0),
-              child: Column(
-                children: <Widget>[
-                  Image.asset(_workhomedata[index].avater,width: 45.0,height: 45.0,),
-                  SizedBox(height: 5.0,),
-                  Text(_workhomedata[index].title),
-                ],
+          return Scrollbar(
+            child: InkWell(
+              radius: 0.0,
+              onTap: _workhomedata[index].onPressed,
+              child: Padding(
+                padding: EdgeInsets.only(top: 20.0),
+                child: Column(
+                  children: <Widget>[
+                    Image.asset(_workhomedata[index].avater,width: 45.0,height: 45.0,),
+                    SizedBox(height: 5.0,),
+                    Text(_workhomedata[index].title),
+                  ],
+                ),
               ),
             ),
           );

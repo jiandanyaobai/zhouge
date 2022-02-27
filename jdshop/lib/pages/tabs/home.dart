@@ -11,7 +11,6 @@ import 'package:dio/dio.dart';
 import 'package:jdshop/model/FocusModel.dart';
 import 'package:jdshop/config/config.dart';
 import 'package:jdshop/model/ProductModel.dart';
-import 'package:jdshop/services/SearchServices.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -37,7 +36,7 @@ class _HomePageState extends State<HomePage>
 
   //获取推荐商品
   _getrecommandProductList() async {
-    var url = 'http://jd.itying.com/api/plist';
+    var url = 'http://jdmall.itying.com/api/plist';
     var result = await Dio().get(url);
     var recommandProduct = ProductModel.fromJson(result.data);
     setState(() {
@@ -145,7 +144,9 @@ class _HomePageState extends State<HomePage>
           String pic = Config.domain + value.pic;
           return InkWell(
             onTap: () {
-              Navigator.pushNamed(context, '/productContent', arguments: {'id': value.sId});},
+              Navigator.pushNamed(context, '/productContent',
+                  arguments: {'id': value.sId});
+            },
             child: Container(
               width: itemWidth,
               decoration: BoxDecoration(
@@ -176,20 +177,58 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: <Widget>[
-        _swiperWidget(),
-        SizedBox(
-          height: 10.0,
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon:
+                Icon(Icons.center_focus_weak, size: 28, color: Colors.black87),
+            onPressed: null,
+          ),
+          title: InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, '/search');
+            },
+            child: Container(
+              height: ScreenUtil().setHeight(36),
+              decoration: BoxDecoration(
+                  color: Color.fromRGBO(233, 233, 233, 0.8),
+                  borderRadius: BorderRadius.circular(30)),
+              padding: EdgeInsets.only(left: 10),
+              child: Row(
+                children: [
+                  Icon(Icons.search),
+                  Text(
+                    '笔记本',
+                    style: TextStyle(fontSize: 15),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.message, size: 28, color: Colors.black87),
+              onPressed: null,
+            )
+          ],
         ),
-        _titleWidget('猜你喜欢'),
-        _hotProductList(),
-        SizedBox(
-          height: 10.0,
+        body: ListView(
+          children: <Widget>[
+            _swiperWidget(),
+            SizedBox(
+              height: 10.0,
+            ),
+            _titleWidget('猜你喜欢'),
+            _hotProductList(),
+            SizedBox(
+              height: 10.0,
+            ),
+            _titleWidget('热门推荐'),
+            _recProductList(),
+          ],
         ),
-        _titleWidget('热门推荐'),
-        _recProductList(),
-      ],
+      ),
     );
   }
 }

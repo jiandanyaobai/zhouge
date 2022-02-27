@@ -13,6 +13,7 @@ class BasicItem {
   final bool isShowicon;
   final List<Widget> widget;
   final VoidCallback onPressed;
+  final String path;
 
   BasicItem({
     this.isShowicon,
@@ -20,6 +21,7 @@ class BasicItem {
     this.title,
     this.avater,
     this.onPressed,
+    this.path,
   });
 }
 
@@ -30,23 +32,22 @@ class PurchaseData {
         title: '采购收货',
         avater: 'assets/images/icon_nocome_alllot.png',
         isShowicon: true,
-        onPressed: () {
-          print('采购收货');
-        }),
+        onPressed: () {print('采购收货');},
+        path:'/purchase-receive'
+    ),
+
     BasicItem(
         title: '扫码收货',
         avater: 'assets/images/icon_scan_inapection.png',
         isShowicon: true,
-        onPressed: () {
-          print('扫码收货');
-        }),
+        onPressed: () {print('扫码收货');},
+        path:'/scan-receive'),
     BasicItem(
         title: '扫码入库',
         avater: 'assets/images/icon_purchase_in_store.png',
         isShowicon: true,
-        onPressed: () {
-          print('扫码入库');
-        }),
+        onPressed: () {print('扫码入库');},
+        path: '/scan-inbound'),
     BasicItem(
         title: '采购仓退',
         avater: 'assets/images/icon_warehouse_return.png',
@@ -72,16 +73,14 @@ class PurchaseData {
         title: '快速收货',
         avater: 'assets/images/icon_fast_receipt_goods.png',
         isShowicon: true,
-        onPressed: () {
-          print('快速收货');
-        }),
+        onPressed: () {print('快速收货');},
+        path: '/quick-receive'),
     BasicItem(
-        title: '快速收货',
+        title: '快速收货(供)',
         avater: 'assets/images/icon_srm_fast_receipt_goods.png',
         isShowicon: true,
-        onPressed: () {
-          print('快速收货');
-        }),
+        path: '/quick-receive',
+        onPressed: () {print('快速收货');}),
     BasicItem(
         title: '采购入库',
         avater: 'assets/images/icon_purchase_in_ware.png',
@@ -90,7 +89,7 @@ class PurchaseData {
           print('采购入库');
         }),
     BasicItem(
-        title: '送货入库',
+        title: '送货入库(供)',
         avater: 'assets/images/icon_srm_scan_in_store.png',
         isShowicon: true,
         onPressed: () {

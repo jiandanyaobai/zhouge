@@ -7,20 +7,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/screenutil.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../services/SearchServices.dart';
 
 class SearchPage extends StatefulWidget {
-
   Map arguments;
-  SearchPage({Key key, this.arguments}):super(key:key);
+  SearchPage({Key key, this.arguments}) : super(key: key);
 
   @override
   _SearchPageState createState() => _SearchPageState();
 }
 
 class _SearchPageState extends State<SearchPage> {
-
   var _keywords;
   List _historyListData = [];
 
@@ -41,9 +39,9 @@ class _SearchPageState extends State<SearchPage> {
             actions: [
               FlatButton(
                 child: Text("取消"),
-                onPressed: (){
+                onPressed: () {
                   print('取消');
-                  Navigator.pop(context,'Cancle');
+                  Navigator.pop(context, 'Cancle');
                 },
               ),
               FlatButton(
@@ -52,24 +50,19 @@ class _SearchPageState extends State<SearchPage> {
                   print('${keywords}');
                   SearchServices.removeHistoryList('${keywords}');
                   this._getHistoryData();
-                  Navigator.pop(context,'Ok');
+                  Navigator.pop(context, 'Ok');
                 },
               ),
-
             ],
-
           );
-        }
-    );
+        });
   }
-
 
   // 获取本地缓存的中的数据
   _getHistoryData() async {
     var _historyListData = await SearchServices.getSearchList();
     setState(() {
-
-      this._historyListData =  _historyListData;
+      this._historyListData = _historyListData;
     });
   }
 
@@ -82,7 +75,10 @@ class _SearchPageState extends State<SearchPage> {
           Container(
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.all(10),
-            child: Text('历史记录', style: TextStyle(fontSize: 20.0),),
+            child: Text(
+              '历史记录',
+              style: TextStyle(fontSize: 20.0),
+            ),
           ),
           Column(
             children: this._historyListData.map((value) {
@@ -90,7 +86,7 @@ class _SearchPageState extends State<SearchPage> {
                 children: [
                   ListTile(
                     title: Text('${value}'),
-                    onLongPress: (){
+                    onLongPress: () {
                       print("现有的值是" + '${value}');
                       this._alertDialog('${value}');
                     },
@@ -106,32 +102,29 @@ class _SearchPageState extends State<SearchPage> {
               width: 160.0,
               height: ScreenUtil().setHeight(40.0),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                border: Border.all(
-                  color: Color.fromRGBO(233, 233, 233, 0.8),
-                  width: 1.0,
-                )
-              ),
+                  borderRadius: BorderRadius.circular(10.0),
+                  border: Border.all(
+                    color: Color.fromRGBO(233, 233, 233, 0.8),
+                    width: 1.0,
+                  )),
               child: InkWell(
-                  onTap: () {
-                    SearchServices.clearHistoryList();
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.delete),
-                      Text('删除历史记录'),
-                    ],
-                  ),
-              )
-          )
+                onTap: () {
+                  SearchServices.clearHistoryList();
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.delete),
+                    Text('删除历史记录'),
+                  ],
+                ),
+              ))
         ],
       );
     } else {
       return Text("");
     }
   }
-
 
   // 构建函数
   @override
@@ -140,7 +133,7 @@ class _SearchPageState extends State<SearchPage> {
         appBar: AppBar(
           title: Container(
             child: TextField(
-              onChanged: (value){
+              onChanged: (value) {
                 this._keywords = value;
               },
               autofocus: true,
@@ -159,14 +152,17 @@ class _SearchPageState extends State<SearchPage> {
               onTap: () {
                 SearchServices.setSearchData(this._keywords);
                 //Navigator.pushNamed(context, '/productlist', arguments: {"keywords": this._keywords});
-                },
+              },
               child: Container(
                 height: ScreenUtil().setHeight(68),
                 width: ScreenUtil().setWidth(50),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text("搜索", style: TextStyle(fontSize: 16.0),)
+                    Text(
+                      "搜索",
+                      style: TextStyle(fontSize: 16.0),
+                    )
                   ],
                 ),
               ),
@@ -177,7 +173,10 @@ class _SearchPageState extends State<SearchPage> {
           children: [
             Container(
               padding: EdgeInsets.all(10),
-              child: Text("热搜", style: TextStyle(fontSize: 20.0),),
+              child: Text(
+                "热搜",
+                style: TextStyle(fontSize: 20.0),
+              ),
             ),
             Wrap(
               alignment: WrapAlignment.start,
@@ -244,7 +243,9 @@ class _SearchPageState extends State<SearchPage> {
                 ),
               ],
             ),
-            Divider(height: 1.0,),
+            Divider(
+              height: 1.0,
+            ),
             // 历史记录
             _historyListWidget(),
           ],

@@ -24,7 +24,8 @@ class PurchasePages extends StatelessWidget {
           return InkWell(
             radius: 0.0,
             highlightColor:Colors.transparent,
-            onTap: _purchasedata[index].onPressed,
+            onTap: (){
+              Navigator.pushNamed(context, '${_purchasedata[index].path}',arguments: {'title':'${_purchasedata[index].title}'} );},
             child: Padding(
               padding: EdgeInsets.only(top:20),
               child: Column(
